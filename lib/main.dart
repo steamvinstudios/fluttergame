@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttergame/game_core/game.dart';
 import 'package:fluttergame/game_core/main_loop.dart';
 
 void main() {
@@ -11,9 +12,7 @@ void main() {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Center(
-        child: Text("hello"),
-      ),
+      home: Game(),
     ));
   });
 }
