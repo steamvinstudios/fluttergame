@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttergame/game_core/game.dart';
 import 'package:fluttergame/game_core/main_loop.dart';
+import 'package:fluttergame/game_core/utilities.dart/global_vars.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,8 +12,39 @@ void main() {
       .whenComplete(() {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Game(),
-    ));
+        debugShowCheckedModeBanner: false,
+        home: SafeArea(
+          child: Scaffold(
+            body: MyApp(),
+          ),
+        )));
   });
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void didChangeDependencies() {
+    initGame(context);
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/background.jpg"), fit: BoxFit.cover)),
+      child: Game(),
+    );
+  }
+
+  void initGame(BuildContext context) {
+    GlobalVars.screenWidth = MediaQuery.of(context).size.width;
+    GlobalVars.screenHeight = MediaQuery.of(context).size.height;
+  }
 }
